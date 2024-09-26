@@ -1,77 +1,120 @@
 (async function () {
 
     // 启用自动拾取的实时任务
+    const startTime = Date.now();
     dispatcher.addTimer(new RealtimeTimer("AutoPick"));
 
-    log.info('自动调查离传送点较近的狗粮。请使用琳妮特前台，双风共鸣。并保证所有传送点都已经激活！');
+    async function logTaskStart() {
+        const messages = [
+            `确保地图的按键为M键`,
+            '左上角派蒙头像未被其他悬浮窗遮挡',
+            '游戏以60帧运行',
+            '游戏视角灵敏度保持默认',
+            '运行时是琳妮特前台且拥有双风共鸣',
+            '元素共鸣需要四个角色组队触发，仅两个风系角色无效'
+        ];
 
-    async function captureCrystalfly(locationName, x, y, num) {
-        log.info('前往 {name}', locationName);
-        await genshin.tp(x, y);
-        await sleep(1000);
-        log.info('此处{num}个点位', num);
-        let filePath = `assets/${locationName}.json`;
-        await keyMouseScript.runFile(filePath);
-        await sleep(3000);
+        for (let message of messages) {
+            log.info(message); 
+            await sleep(1000);
+        }
     }
 
-    await captureCrystalfly('须弥城', 2786, -503, 1);
-    await captureCrystalfly('须弥城东', 2694, -416, 1);
-    await captureCrystalfly('须弥城西北1', 2876, -292, 1);
-    await captureCrystalfly('须弥城西北2', 2876, -292, 1);    
-    await captureCrystalfly('枫丹廷1', 4509, 3630, 1);
-    await captureCrystalfly('枫丹廷2', 4509, 3630, 2);
-    await captureCrystalfly('欧庇克莱歌剧院东南', 3595, 3254, 1); 
-    await captureCrystalfly('莫尔泰神像', 3556, 3023, 1); 
-    await captureCrystalfly('芒索斯山东1', 4985, 4463, 1); 
-    await captureCrystalfly('芒索斯山东2', 4985, 4463, 1); 
-    await captureCrystalfly('学术会堂', 4144, 4424, 1); 
-    await captureCrystalfly('科学院北', 4434, 5092, 1);
-    await captureCrystalfly('科学院西北1', 4624, 4952, 1);  
-    await captureCrystalfly('科学院西北2', 4624, 4952, 1);
-    await captureCrystalfly('放大地图', 4498, 4711, 0);    
-    await captureCrystalfly('科学院西', 4498, 4711, 1);
-    await captureCrystalfly('缩小地图', 4498, 4711, 0); 
-    await captureCrystalfly('佩特莉可神像', 4454, 1255, 1);
-    await captureCrystalfly('佩特莉可镇', 4322, 1172, 1);
-    await captureCrystalfly('奥藏山', 1451, 1029, 2);
-    await captureCrystalfly('放大地图', 1185, 620, 0);
-    await captureCrystalfly('绝云间1', 1185, 620, 1);
-    await captureCrystalfly('绝云间2', 1185, 620, 2);  
-    await captureCrystalfly('缩小地图', 1185, 620, 0);   
-    await captureCrystalfly('沉玉谷码头', 1113, 1948, 1);
-    await captureCrystalfly('沉玉谷狗洞', 1114, 1948, 1);
-    await captureCrystalfly('荻花洲西', 730, 1062, 1);
-    await captureCrystalfly('望舒客栈', 330, 874, 1);
-    await captureCrystalfly('轻策庄', 547, 1767, 1);
-    //await captureCrystalfly('石门', 207, 1573, 1);
-    await captureCrystalfly('地中之盐', -164, 1183, 3);
-    await captureCrystalfly('无相之冰', -410, 1161, 3);
-    await captureCrystalfly('解除冰元素附着', -255, 629, 0);
-    await captureCrystalfly('酒窖', 730, 1062, 5);
-    await captureCrystalfly('神无冢1', -3405, -3534, 1);
-    await captureCrystalfly('神无冢2', -3405, -3534, 2);
-    await captureCrystalfly('海祈岛', -1315, -3776, 2);
-    await captureCrystalfly('沉眠之庭1', -4185, -4244, 2);
-    await captureCrystalfly('沉眠之庭2', -4185, -4244, 1);
-    await captureCrystalfly('浅濑神社', -3698, -4689, 3);
-    await captureCrystalfly('鹤观神像', -3269, -6135, 1);
-    await captureCrystalfly('黄金王兽北', -2612, -6507, 2);
-    await captureCrystalfly('楚汶市集1', 9059, -1847, 1);
-    await captureCrystalfly('楚汶市集2', 9059, -1847, 1);
-    await captureCrystalfly('竞技场东', 8734, -1856, 1);
-    await captureCrystalfly('中鸵鸟', 8242, -1735, 1);
-    await captureCrystalfly('北鸵鸟', 8396, -1216, 2);
-    //await captureCrystalfly('放大地图', 9033, -1372, 0);
-    //await captureCrystalfly('柴薪之丘', 9033, -1372, 1);
-    //await captureCrystalfly('缩小地图', 9033, -1372, 0);   
-    await captureCrystalfly('虹灵的净土', 9038, -2428, 1);
-    await captureCrystalfly('流泉之众', 8918, -2678, 1);
-    await captureCrystalfly('悬木人', 8508, -2219, 1);
-    //await captureCrystalfly('二净甸神像', 3250, -597, 2);
-    await captureCrystalfly('圣显厅南', 4271, -1666, 1);
-    await captureCrystalfly('圣显厅西', 4775, -1437, 1);
-    await captureCrystalfly('海露港', 4984, 1700, 1);  
-    await captureCrystalfly('神的棋盘', 5759, -1309, 1); 
-    //await captureCrystalfly('回声之子', 7530, -1353, 2);
+    async function KeyMouse(locationName, sec, x, y) 
+    {
+        if (x !== undefined && y !== undefined) {
+            log.info(`前往 {name}`, locationName);
+            await genshin.tp(x, y);
+            await sleep(1000);
+        }
+    
+        let filePath = `assets/KeyMouse/${locationName}.json`;
+        await keyMouseScript.runFile(filePath);
+        await sleep(sec * 1000); // 将秒转换为毫秒
+    }
+
+    async function AutoPath(locationName) {
+        let filePath = `assets/AutoPath/${locationName}.json`;
+        await AutoPathing.runFile(filePath);
+    }
+
+    await logTaskStart();
+
+    await KeyMouse('地中之盐北', 1, -321, 1470);
+    await KeyMouse('无相之冰', 1, -410, 1161);
+    await KeyMouse('解除冰元素附着', 4, -255, 629);
+    await KeyMouse('地中之盐', 2, -164, 1183);
+    await KeyMouse('望舒客栈', 2, 330, 874);
+    await KeyMouse('荻花洲西', 2, 730, 1062);
+    await KeyMouse('望舒客栈西', 2, 730, 1062);
+    await KeyMouse('轻策庄', 2, 547, 1767);
+    await KeyMouse('沉玉谷码头', 2, 1113, 1948);
+    await KeyMouse('沉玉谷狗洞', 2, 1114, 1948);
+    await KeyMouse('奥藏山', 2, 1451, 1029);
+    await KeyMouse('放大地图', 1, 1185, 620);
+    await KeyMouse('绝云间1', 2, 1185, 620);
+    await KeyMouse('绝云间2', 2, 1185, 620);
+    await KeyMouse('缩小地图', 1);
+    await KeyMouse('酒窖', 2, 730, 1062);
+
+    await KeyMouse('神无冢1', 2, -3405, -3534);
+    await KeyMouse('神无冢2', 2, -3405, -3534);
+    await KeyMouse('炉心1', 2, -3289, -3654);
+    await KeyMouse('炉心2', 2, -3289, -3654);
+    await KeyMouse('绝美我心', 2, -1315, -3776);
+    await KeyMouse('沉眠之庭1', 2, -4185, -4244);
+    await KeyMouse('沉眠之庭2', 2, -4185, -4244);
+    await KeyMouse('浅濑神社', 2, -3698, -4689);
+    await KeyMouse('鹤观神像1', 2, -3269, -6135);
+    await KeyMouse('鹤观神像2', 2, -3269, -6135);
+    await KeyMouse('黄金王兽北', 2, -2612, -6507);
+
+    await KeyMouse('须弥城', 2, 2786, -503);
+    await KeyMouse('须弥城东', 2, 2694, -416);
+    await KeyMouse('须弥城西北1', 2, 2876, -292);
+    await KeyMouse('须弥城西北2', 2, 2876, -292);
+    await KeyMouse('圣显厅南', 2, 4271, -1666);
+    await KeyMouse('圣显厅西', 2, 4775, -1437);
+    await KeyMouse('神的棋盘', 2, 5759, -1309);
+
+    await KeyMouse('枫丹廷1', 2, 4509, 3630);
+    await KeyMouse('枫丹廷2', 2, 4509, 3630);
+    await KeyMouse('欧庇克莱歌剧院东南', 2, 3595, 3254);
+    await KeyMouse('芒索斯山东1', 2, 4985, 4463);
+    await KeyMouse('芒索斯山东2', 2, 4985, 4463);
+    await KeyMouse('学术会堂', 2, 4144, 4424);
+    await KeyMouse('科学院北', 2, 4434, 5092);
+    await KeyMouse('科学院西北1', 2, 4624, 4952);
+    await KeyMouse('科学院西北2', 2, 4624, 4952);
+    await KeyMouse('放大地图', 1);
+    await KeyMouse('科学院西', 2, 4498, 4711);
+    await KeyMouse('缩小地图', 1);
+    await KeyMouse('海露港', 6, 4984, 1700);
+    await KeyMouse('遗忘之路', 2, 5990, 1212);
+    await KeyMouse('佩特莉可神像', 2, 4454, 1255);
+    await KeyMouse('佩特莉可镇', 2, 4322, 1172);
+
+    await KeyMouse('楚汶市集1', 2, 9059, -1847);
+    await KeyMouse('楚汶市集2', 2, 9059, -1847);
+    await KeyMouse('竞技场东', 2, 8734, -1856);
+    await KeyMouse('中鸵鸟', 1, 8242, -1735);
+    await KeyMouse('北鸵鸟', 1, 8396, -1216);
+    await KeyMouse('虹灵的净土', 2, 9038, -2428);
+    await KeyMouse('流泉之众', 2, 8918, -2678);
+    await KeyMouse('悬木人', 2, 8433, -2108);
+
+    await KeyMouse('精石铜城', 2, 6323, 821);
+    //彩蛋：凭此注释截图可找'辉鸭蛋'领取10分钟禁言礼包一份
+
+    //await AutoPath('莫尔泰区神像');
+
+    // 计算并输出总时长
+    const endTime = Date.now();
+    const totalTimeInSeconds = (endTime - startTime) / 1000;
+    // 将总时长转换为分钟和秒的形式
+    const minutes = Math.floor(totalTimeInSeconds / 60);
+    const seconds = totalTimeInSeconds % 60;
+    // 格式化输出
+    const formattedTime = `${minutes}分${seconds.toFixed(0).padStart(2, '0')}秒`;
+    log.info(`自动狗粮运行总时长：${formattedTime}`);
 })();
